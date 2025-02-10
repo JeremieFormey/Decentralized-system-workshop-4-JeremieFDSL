@@ -7,15 +7,15 @@ export async function simpleOnionRouter(nodeId: number) {
   onionRouter.use(express.json());
   onionRouter.use(bodyParser.json());
 
-  // TODO implement the status route
-  // onionRouter.get("/status", (req, res) => {});
+  // Implémentation de la route /status
+  onionRouter.get("/status", (req, res) => {
+    res.send("live");
+  });
 
-  const server = onionRouter.listen(BASE_ONION_ROUTER_PORT + nodeId, () => {
-    console.log(
-      `Onion router ${nodeId} is listening on port ${
-        BASE_ONION_ROUTER_PORT + nodeId
-      }`
-    );
+  const port = BASE_ONION_ROUTER_PORT + nodeId;
+
+  const server = onionRouter.listen(port, () => {
+    console.log(`Onion router ${nodeId} is listening on http://localhost:${port}`);
   });
 
   return server;
